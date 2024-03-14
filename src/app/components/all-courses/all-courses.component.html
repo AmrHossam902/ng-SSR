@@ -1,0 +1,25 @@
+
+
+<div>
+    <app-search value="" (searchEvent)="onSearchEvent($event)"></app-search>
+    <div class="container">
+        <p-card class="course-card" *ngFor="let course of coursesList">
+            <ng-template pTemplate="header">
+                <img src="{{course.img}}"/>
+            </ng-template>
+            <ng-template pTemplate="title">
+                <div class="card-title">
+                    {{course.name}}
+                </div>
+            </ng-template>
+            <p>
+                desc goes here
+            </p>
+            <ng-template pTemplate="footer">
+                <p-button pRipple class="p-button-success">{{course.price}} $</p-button>
+            </ng-template>
+            
+        </p-card>
+    </div>
+</div>
+

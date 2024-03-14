@@ -1,0 +1,40 @@
+
+.search-box {
+    padding: 1.5em;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+
+    & > .course-card {
+
+
+        display: block;
+        width: 20em;
+        border-radius: 1em;
+        overflow: hidden;
+        transition: transform 0.5s;
+        cursor: pointer;
+        margin: 1.5em;
+        box-shadow: 0 0 1.5em 0.1em gray;
+
+        img {
+            width: auto;
+            height: 15em;
+        }
+
+        &:hover {
+            transform: scale(1.05);
+        }
+
+        .card-title {
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+        }
+
+    }
+}

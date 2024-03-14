@@ -1,0 +1,14 @@
+<div>
+    <input 
+        type="text" 
+        class="p-inputtext-sm" 
+        pInputText 
+        [(ngModel)]="value"
+        placeholder="search"
+        (keyup)="keyPressed($event)"
+        />
+    <p-button 
+        label="search"
+        (click)="onClickSearch()"
+    ></p-button>
+</div>
