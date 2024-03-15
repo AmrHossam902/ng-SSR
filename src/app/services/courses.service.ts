@@ -10,20 +10,8 @@ export class CoursesService {
 
   }
 
-  fetchCoursesList(q: Record<string,any>){
-    
-    const keysArr = Object.keys(q);
-    if(keysArr.length == 0)
-      return this.http.get<Course[]>(`${env.baseURL}api/courses-list`);
-
-    let qs="?";
-    keysArr.forEach(
-      (key)=>{
-        qs+= `${key}=${q[key]}`
-      }
-    );
-
-    return this.http.get<Course[]>(`${env.baseURL}api/courses-list${qs}`);
+  fetchCoursesList(q: Record<string,any>){  
+      return this.http.get<Course[]>(`${env.baseURL}api/courses-list`, {"params": q});
   }
 
 }

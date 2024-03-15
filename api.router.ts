@@ -1,12 +1,7 @@
 
 import { Request, Response, Router } from "express";
 import { env } from "src/environments/env";
-
-type Course = {
-    name: string;
-    price: number;
-    img: string;
-}
+import  Course  from 'src/app/interfaces/course.interface'
 
 const courses: Course[] = [
     {
@@ -75,18 +70,25 @@ export const coursesRouter : Router = Router();
 coursesRouter.get('/courses-list', 
     (req: Request, res: Response<Course[]>) =>{
         
-    
-        if(req.query['search']){
-            let filteredCourses = courses.filter(
-                (course: Course)=>{
-                    return course.name.toLocaleLowerCase().includes(req.query['search'] as string);
-                }
-            );
+        let page = Number(req.query['page']) || 1;
+        let size = Number(req.query['size']) || 3;
+        let search = (req.query['search'] ||  '') as string;
+        
+        console.log(req.url);
+        console.log('query', req.query);
+        console.log(req.query['page'], req.query['size']);
+        console.log(page,size,search);
 
-            res.send(filteredCourses);
-        }
-        else
-            res.send(courses);
+        let result = courses.filter(
+            (course: Course)=>{
+                return course.name.toLocaleLowerCase().includes(search);
+            }
+        );
+
+        result = result.slice( (page-1)* size, page * size );
+            console.log(result);
+        res.send(result);
+
     }
 )
 

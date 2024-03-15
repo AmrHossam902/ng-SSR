@@ -21,5 +21,13 @@
             
         </p-card>
     </div>
+    <div class="flex-auto">
+        <p-paginator 
+            (onPageChange)="onPageChange($event)" 
+            [first]="(currentPage-1)* pageSize"
+            [rows]="pageSize" 
+            [totalRecords]="11">
+        </p-paginator>
+    </div>
 </div>
 

@@ -1,0 +1,11 @@
+.search-container{
+    padding: 1.5em;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    input {
+        margin-right: 1em;
+    }
+}

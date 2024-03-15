@@ -13,6 +13,7 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext'
 import { SearchComponent } from './components/search/search.component';
+import { PaginatorModule } from 'primeng/paginator';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { SearchComponent } from './components/search/search.component';
     HttpClientModule,
     ButtonModule,
     CardModule,
+    PaginatorModule,
     TransferHttpCacheModule,
     FormsModule,
     InputTextModule
