@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Course, CoursesService } from '../../services/courses.service';
-import { env
- } from 'src/environments/env';
+import { CoursesService } from '../../services/courses.service';
+import { Course } from 'src/app/interfaces/course.interface';
+import { env } from 'src/environments/env';
 import { ActivatedRoute } from '@angular/router';
 import { map, tap } from 'rxjs';
 @Component({
@@ -52,13 +52,16 @@ export class AllCoursesComponent {
   onSearchEvent(e:string){
     console.log(e);
     this.searchKey = e;
+    this.currentPage=1;
     this.sendPageRequest();
   }
 
   onPageChange(e:any){
     console.log(e);
-    this.currentPage = e.page + 1;
-    this.sendPageRequest();
+    if(this.currentPage != e.page + 1){
+      this.currentPage = e.page + 1;
+      this.sendPageRequest();
+    }
   }
 
 

@@ -1,7 +1,7 @@
 
 import { Request, Response, Router } from "express";
 import { env } from "src/environments/env";
-import  Course  from 'src/app/interfaces/course.interface'
+import { Course }  from 'src/app/interfaces/course.interface'
 
 const courses: Course[] = [
     {

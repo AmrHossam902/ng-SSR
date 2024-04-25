@@ -1,7 +1,7 @@
 
 
 <div>
-    <app-search value="" (searchEvent)="onSearchEvent($event)"></app-search>
+    <app-search [value]="searchKey" (searchEvent)="onSearchEvent($event)"></app-search>
     <div class="container">
         <p-card class="course-card" *ngFor="let course of coursesList">
             <ng-template pTemplate="header">

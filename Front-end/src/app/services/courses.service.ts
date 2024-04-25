@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { env } from 'src/environments/env';
+import { Course } from '../interfaces/course.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,8 +17,3 @@ export class CoursesService {
 
 }
 
-export type Course = {
-  name: string;
-  price: number;
-  img: string;
-}
