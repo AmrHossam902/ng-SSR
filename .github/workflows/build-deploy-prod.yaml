@@ -1,0 +1,19 @@
+name: build-deploy-prod
+
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checking out your repo
+        uses: actions/checkout@v4
+
+      - name: test stage
+        run: echo "hi, is running"
+  
+  deploy-job:
+    needs: build-job
