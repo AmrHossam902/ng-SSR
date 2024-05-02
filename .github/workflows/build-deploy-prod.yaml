@@ -67,6 +67,10 @@ jobs:
           name: api-image
           path: ./api-image.tar
 
+      - name: inspect inside files
+        run: |
+          ls -al
+
       - name: loading images into docker
         run: |
           docker load -i front-image.tar
