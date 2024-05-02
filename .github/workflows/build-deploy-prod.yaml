@@ -43,8 +43,6 @@ jobs:
           overwrite: true
 
 
-
-
   push-job:
     needs: build-job
     runs-on: ubuntu-latest
@@ -87,3 +85,48 @@ jobs:
         run: |
           docker push amrhossam/test-repo:uni-front
           docker push amrhossam/test-repo:uni-api
+
+  
+  deploy-job:
+    needs: push-job
+    runs-on: ubuntu-latest
+    steps:
+      - name: login to dockerhub
+        uses: appleboy/ssh-action@v1.0.3
+        with: 
+          host: ${{ secrets.SSH_HOST }}   
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: sudo docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+
+      - name: pulling images from dockerhub
+        uses: appleboy/ssh-action@v1.0.3
+        with: 
+          host: ${{ secrets.SSH_HOST }}   
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            sudo docker pull amrhossam/test-repo:uni-front
+            sudo docker pull amrhossam/test-repo:uni-api
+
+      - name: kill running containers
+        uses: appleboy/ssh-action@v1.0.3
+        with: 
+          host: ${{ secrets.SSH_HOST }}   
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            sudo docker compose down
+
+      - name: relaunch containers
+        uses: appleboy/ssh-action@v1.0.3
+        with: 
+          host: ${{ secrets.SSH_HOST }}   
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            sudo docker compose up
