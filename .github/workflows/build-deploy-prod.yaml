@@ -69,7 +69,7 @@ jobs:
 
       - name: inspect inside files
         run: |
-          ls -al
+          ls -R
 
       - name: loading images into docker
         run: |
