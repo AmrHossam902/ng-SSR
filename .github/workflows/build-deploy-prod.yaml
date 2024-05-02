@@ -27,11 +27,11 @@ jobs:
           docker save -o api-image.tar test-repo:uni-api
       
       - name: save the front image artifiact
+        uses: actions/upload-artifact@v4
         with:
-          uses: actions/upload-artifact@v4
-            name: front-image
-            path: ./front-image.tar
-            retention-days: 1
+          name: front-image
+          path: ./front-image.tar
+          retention-days: 1
 
       - name: save the api image artifiact
         uses: actions/upload-artifact@v4
