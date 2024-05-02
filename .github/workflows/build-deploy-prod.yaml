@@ -22,7 +22,7 @@ jobs:
         run: docker compose build
 
   push-job:
-    depends-on: build-job
+    needs: build-job
     runs-on: ubuntu-latest
     steps:
       - name: log in to docker hub
