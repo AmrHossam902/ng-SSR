@@ -15,5 +15,3 @@ jobs:
       - name: test stage
         run: echo "hi, is running"
   
-  deploy-job:
-    needs: build-job
