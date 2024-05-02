@@ -1,45 +1,56 @@
-
-
+version: "2.4"
+name: ssr
 services:
   db-service:
     image: mongo
 
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
 
     networks:
-      - back
+      back:
+        ipv4_address: 172.30.0.2
 
   nest-app:
     build: ./back-end
     image: uni-api
     networks:
-      - back
+      back:
+        ipv4_address: 172.30.0.3
     depends_on:
       - db-service
 
   db-client:
     image: mongo-express
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: root              
-      ME_CONFIG_MONGODB_PORT: 27017 
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASSWORD}              
+      ME_CONFIG_MONGODB_PORT: ${MONGO_PORT} 
       ME_CONFIG_MONGODB_SERVER: db-service
     ports:
-      - 8081:8081
+      - ${DB_CLIENT_EXPOSED_PORT}:8081
     networks:
-      - back
+      back:
+        ipv4_address: 172.30.0.4
     depends_on:
       - db-service
 
   ang-app:
     build: ./Front-end 
     networks:
-      - back 
+      back:
+        ipv4_address: 172.30.0.5
+    ports:
+      - ${FRONT_END_EXPOSED_PORT}:4000
     depends_on:
       - nest-app
 
 networks:
-  back: {}
+  back:
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16
+          ip_range: 172.30.0.0/24
+          gateway: 172.30.0.1
 
