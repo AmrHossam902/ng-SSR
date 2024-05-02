@@ -14,7 +14,7 @@ services:
 
   nest-app:
     build: ./back-end
-    image: uni-api
+    image: test-repo:uni-api
     networks:
       back:
         ipv4_address: 172.30.0.3
@@ -38,6 +38,7 @@ services:
 
   ang-app:
     build: ./Front-end 
+    image: test-repo:uni-front
     networks:
       back:
         ipv4_address: 172.30.0.5
