@@ -21,15 +21,56 @@ jobs:
       - name: build docker images
         run: docker compose build
 
+      - name: saving image as tar
+        run: | 
+          docker save -o front-image.tar test-repo:uni-front
+          docker save -o api-image.tar test-repo:uni-api
+      
+      - name: save the front image artifiact
+        with:
+          uses: actions/upload-artifact@v4
+            name: front-image
+            path: ./front-image.tar
+            retention-days: 1
+
+      - name: save the api image artifiact
+        uses: actions/upload-artifact@v4
+          with:
+            name: api-image
+            path: ./api-image.tar
+            retention-days: 1
+
+
+
+
   push-job:
     needs: build-job
     runs-on: ubuntu-latest
     steps:
       - name: log in to docker hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }} 
+          with:
+            username: ${{ secrets.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKER_PASSWORD }} 
+
+
+      - name: download front image artifact
+        uses: actions/download-artifact@v4
+          with:
+            name: front-image
+            path: ./front-image.tar
+
+
+      - name: download api image artifact
+        uses: actions/download-artifact@v4
+          with:
+            name: api-image
+            path: ./api-image.tar
+
+      - name: loading images into docker
+        run: |
+          docker load -i front-image.tar
+          docker load -i api-image.tar
 
       - name: tag images before push
         run: |
