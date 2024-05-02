@@ -5,6 +5,9 @@ on:
   push:
     branches:
       - master
+    pull_request:
+      - master
+  
 jobs:
   build-job:
     runs-on: ubuntu-latest
@@ -14,4 +17,6 @@ jobs:
 
       - name: test stage
         run: echo "hi, is running"
-  
+
+      - name: build docker images
+        run: docker compose build
