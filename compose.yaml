@@ -33,6 +33,12 @@ services:
     depends_on:
       - db-service
 
+  ang-app:
+    build: ./Front-end 
+    networks:
+      - back 
+    depends_on:
+      - nest-app
 
 networks:
   back: {}
