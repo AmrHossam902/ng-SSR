@@ -21,7 +21,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           overwrite: true
           source: compose.yaml
-          target: ~/uni-app
+          target: "/home/ec2-user/uni-app"
 
       - name: checking out your repo
         uses: actions/checkout@v4
