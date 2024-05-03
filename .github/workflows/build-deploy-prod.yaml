@@ -111,6 +111,17 @@ jobs:
             sudo docker pull amrhossam/test-repo:uni-front
             sudo docker pull amrhossam/test-repo:uni-api
 
+      - name: copying compose and env files
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          overwrite: true
+          source: "compose.yaml,.env"
+          target: "~/uni-app"
+
       - name: kill running containers
         uses: appleboy/ssh-action@v1.0.3
         with: 
@@ -119,6 +130,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
+            cd ~/uni-app
             sudo docker compose down
 
       - name: relaunch containers
@@ -129,4 +141,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
+            cd ~/uni-app
+            sudo docker tag amrhossam/test-repo:uni-front test-repo:uni-front
+            sudo docker tag amrhossam/test-repo:uni-api test-repo:uni-api
             sudo docker compose up
