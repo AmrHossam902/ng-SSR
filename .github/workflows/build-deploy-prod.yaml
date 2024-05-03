@@ -47,6 +47,16 @@ jobs:
     needs: build-job
     runs-on: ubuntu-latest
     steps:
+      - name: copying compose and env files
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          overwrite: true
+          source: compose.yaml,.env
+          target: "~/uni-app"
       - name: log in to docker hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
@@ -119,7 +129,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           overwrite: true
-          source: "compose.yaml,.env"
+          source: compose.yaml,.env
           target: "~/uni-app"
 
       - name: kill running containers
@@ -130,7 +140,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd ~/uni-app
+            cd ~/uni-app/
             sudo docker compose down
 
       - name: relaunch containers
