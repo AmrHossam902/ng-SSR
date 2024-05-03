@@ -98,7 +98,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          script: sudo docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+          script: sudo docker login -u ${{secrets.DOCKER_USERNAME}} -p "${{secrets.DOCKER_PASSWORD}}"
 
       - name: pulling images from dockerhub
         uses: appleboy/ssh-action@v1.0.3
