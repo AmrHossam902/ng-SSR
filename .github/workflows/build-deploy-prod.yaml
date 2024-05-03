@@ -20,7 +20,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           overwrite: true
-          source: ./compose.yaml,./.env
+          source: compose.yaml
           target: ~/uni-app
 
       - name: checking out your repo
