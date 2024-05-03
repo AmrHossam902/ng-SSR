@@ -147,4 +147,4 @@ jobs:
             cd ~/uni-app
             sudo docker tag amrhossam/test-repo:uni-front test-repo:uni-front
             sudo docker tag amrhossam/test-repo:uni-api test-repo:uni-api
-            sudo docker compose up
+            sudo docker compose up -d
