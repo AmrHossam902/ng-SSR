@@ -19,7 +19,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          overwrite: true
           source: "./compose.yaml"
           target: "/home/ec2-user/uni-app/"
 
