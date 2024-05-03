@@ -22,7 +22,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          source: compose.yaml
+          source: compose.yaml,.env
           target: ~/uni-app
 
       - name: test stage
