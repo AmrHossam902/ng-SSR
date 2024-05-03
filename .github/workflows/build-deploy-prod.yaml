@@ -22,8 +22,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          source: "./compose.yaml"
-          target: "/home/ec2-user/uni-app/"
+          source: compose.yaml
+          target: ~/uni-app
 
       - name: test stage
         run: echo "hi, is running"
