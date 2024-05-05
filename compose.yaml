@@ -11,6 +11,9 @@ services:
     networks:
       back:
         ipv4_address: 172.30.0.2
+    
+    volumes:
+      - db-store:/data/db
 
   nest-app:
     build: ./back-end
@@ -18,8 +21,13 @@ services:
     networks:
       back:
         ipv4_address: 172.30.0.3
+    
+    volumes:
+      - nest-store:/uni-api/static-files
+
     depends_on:
       - db-service
+    
 
   db-client:
     image: mongo-express
@@ -55,3 +63,6 @@ networks:
           ip_range: 172.30.0.0/24
           gateway: 172.30.0.1
 
+volumes:
+  db-store:
+  nest-store:

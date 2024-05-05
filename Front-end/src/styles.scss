@@ -7,3 +7,22 @@ body {
 
 }
 
+input, textarea {
+    width: 100% !important;
+    border-radius: 0.5em !important;
+    padding: 1em !important;
+}
+
+
+.form-element-ctr{
+    padding: 1em 0em;
+
+    .element-hdr {
+        display: inline-block;
+        margin: 0em 0em 0.5em 0em;
+    }
+}
+
+.error {
+    color: red;
+}

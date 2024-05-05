@@ -1,0 +1,50 @@
+
+<form [formGroup]="myForm">
+
+    <h2>Add new course</h2>
+    
+    <div class="form-element-ctr">
+        <label class="element-hdr" for="title">Title</label>    
+        <input type="text" pInputText id="title" formControlName="title" />
+        <label 
+            class="error"
+            *ngIf="myForm.controls['title'].invalid 
+                && (myForm.controls['title'].dirty || myForm.controls['title'].touched)">
+                * this field is required 
+        </label>
+    </div>
+
+    <div class="form-element-ctr">
+        <label class="element-hdr" for="desc">Description</label>
+        <textarea pInputTextarea id="desc" rows="5" formControlName="desc"></textarea>
+        <label 
+            class="error"
+            *ngIf="myForm.controls['desc'].invalid 
+                && (myForm.controls['desc'].dirty || myForm.controls['desc'].touched)">
+                * this field is required 
+        </label>
+    </div>
+
+    <div class="form-element-ctr">
+        <label class="element-hdr">select an image for the course</label><br/>
+        <input id="crs-img" type="file" formControlName="courseImg" (change)="onFileChange($event)" hidden/> 
+        <label id="img-lbl" for="crs-img"> select file +</label> {{ file?.name }}
+        <br/>
+        <label 
+            class="error"
+            *ngIf="myForm.controls['courseImg'].invalid 
+                && (myForm.controls['courseImg'].dirty || myForm.controls['courseImg'].touched)">
+                * this field is required 
+        </label>
+    </div>
+
+    <button 
+        (click)="onSubmit()"
+        id="submit-btn">
+        <i *ngIf="submitState == 1" class="pi pi-spin pi-spinner"></i>
+        submit
+    </button>
+
+</form>
+
+
