@@ -40,7 +40,8 @@
 
     <button 
         (click)="onSubmit()"
-        id="submit-btn">
+        id="submit-btn"
+        [disabled]="myForm.invalid">
         <i *ngIf="submitState == 1" class="pi pi-spin pi-spinner"></i>
         submit
     </button>
