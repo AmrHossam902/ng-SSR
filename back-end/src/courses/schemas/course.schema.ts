@@ -6,11 +6,15 @@ export type CourseDocument = HydratedDocument<Course>;
 
 @Schema()
 export class Course {
+
   @Prop()
   title: string;
 
   @Prop()
   desc: string;
+
+  @Prop()
+  imageUrl: string;
 
   @Prop()
   startDate: Date;

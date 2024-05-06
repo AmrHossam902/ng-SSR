@@ -5,15 +5,15 @@
     <div class="container">
         <p-card class="course-card" *ngFor="let course of coursesList">
             <ng-template pTemplate="header">
-                <img src="{{course.img}}"/>
+                <img src="{{course.imageUrl}}"/>
             </ng-template>
             <ng-template pTemplate="title">
                 <div class="card-title">
-                    {{course.name}}
+                    {{course.title}}
                 </div>
             </ng-template>
             <p>
-                desc goes here
+                {{course.desc}}
             </p>
             <ng-template pTemplate="footer">
                 <p-button pRipple class="p-button-success">{{course.price}} $</p-button>

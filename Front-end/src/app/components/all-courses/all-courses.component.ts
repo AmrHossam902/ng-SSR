@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { CoursesService } from '../../services/courses.service';
-import { Course } from 'src/app/interfaces/course.interface';
+import { ICourse } from 'src/app/interfaces/Icourse.interface';
 import { env } from 'src/environments/env';
 import { ActivatedRoute } from '@angular/router';
 import { map, tap } from 'rxjs';
+import { isPlatformServer } from '@angular/common';
+
 @Component({
   selector: 'app-all-courses',
   templateUrl: './all-courses.component.html',
@@ -11,16 +13,17 @@ import { map, tap } from 'rxjs';
 })
 export class AllCoursesComponent {
 
-  coursesList: Course[] = [];
+  coursesList: ICourse[] = [];
   searchKey: string ="";
   currentPage: number = 1;
   pageSize: number = 3;
 
   constructor(
     private coursesService: CoursesService,
-    private route: ActivatedRoute){
+    private route: ActivatedRoute,
+    @Inject(PLATFORM_ID) private platformId: Object){
 
-      
+
       this.route.queryParams.pipe(
         tap(console.log),
         map((q)=>{
@@ -34,7 +37,15 @@ export class AllCoursesComponent {
             this.pageSize = Number(q['size'])
 
           this.coursesService.fetchCoursesList(q).subscribe(
-            (res: Course[])=>{ this.coursesList = res }
+            (res: ICourse[])=>{ 
+              if(isPlatformServer(this.platformId)){
+        
+                res.forEach( course =>{
+                  course.imageUrl = env.apiURL + '/static' + course.imageUrl; 
+                })
+              }
+              this.coursesList = res
+            }
           )
         })
       )
