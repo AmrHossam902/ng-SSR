@@ -5,9 +5,11 @@ RUN mkdir ang-app
 
 WORKDIR /ang-app 
 
-COPY . /ang-app/
+COPY package* /ang-app/
 
 RUN npm i
+
+COPY . /ang-app/
 
 RUN npm run build:ssr
 
