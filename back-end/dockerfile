@@ -5,9 +5,11 @@ RUN mkdir uni-api
 
 WORKDIR /uni-api 
 
-COPY * /uni-api/
+COPY package* /uni-api/
 
 RUN npm i 
+
+COPY . /uni-api/
 
 RUN npm run build
 
