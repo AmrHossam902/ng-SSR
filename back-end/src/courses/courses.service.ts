@@ -13,8 +13,28 @@ export class CoursesService {
         private storageService: StorageService
     ){}
 
-    async getAllCourses(){
-        return this.courseModel.find({});
+    async getAllCourses(page:number, size: number, search: string){
+        
+        return this.courseModel
+            .find(
+                { 
+                    "$or": [
+                        {
+                            "title" : {
+                                "$regex" : search,
+                                "$options": "i"
+                            }
+                        },{
+                            "desc" : {
+                                "$regex" : search,
+                                "$options": "i"
+                            }
+                        }
+                    ]
+                }, 
+                {"_id": 0})
+            .skip((page - 1)* size)
+            .limit(size);
     }
 
     async createNewCourse(course: Course, courseImg: IMulterFile){

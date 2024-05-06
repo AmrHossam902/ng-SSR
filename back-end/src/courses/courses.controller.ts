@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, ParseIntPipe, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Course } from './schemas/course.schema';
 import { Model } from 'mongoose';
@@ -16,8 +16,13 @@ export class CoursesController {
     ){}
 
     @Get("")
-    async getAllCourses() {
-        return this.coursesService.getAllCourses();
+    async getAllCourses(
+        @Query('page', new ParseIntPipe({"optional":true})) page: number = 1,
+        @Query('size', new ParseIntPipe({"optional":true})) size: number = 3,
+        @Query('search') search: string = ""
+    ) {
+        console.log(page, size, search);
+        return this.coursesService.getAllCourses(page, size, search);
     }
 
 
@@ -25,8 +30,6 @@ export class CoursesController {
     @UseInterceptors(FileInterceptor('imageFile') )
     async createNewCourse(@UploadedFile() courseImg: IMulterFile, @Body() course: Course){
         
-
-
         return this.coursesService.createNewCourse(course, courseImg);
     }
 

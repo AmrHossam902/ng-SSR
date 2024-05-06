@@ -77,7 +77,7 @@ export class AllCoursesComponent {
 
 
   sendPageRequest(){
-    let finalUrl = env.baseURL + `courses?page=${this.currentPage}&size=${this.pageSize}`;
+    let finalUrl = env.baseURL + `/courses?page=${this.currentPage}&size=${this.pageSize}`;
     if(this.searchKey)
       finalUrl += `&search=${this.searchKey}`;
     window.location.href = finalUrl;
