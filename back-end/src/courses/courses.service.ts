@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { StorageService } from 'src/storage/storage.service';
 import { IMulterFile } from './interfaces/ImulterFile.interface';
 import { randomUUID } from 'crypto';
+import { IAllCoursesRes } from './interfaces/IAllCoursesRes.interface';
 
 @Injectable()
 export class CoursesService {
@@ -13,28 +14,38 @@ export class CoursesService {
         private storageService: StorageService
     ){}
 
-    async getAllCourses(page:number, size: number, search: string){
+    async getAllCourses(page:number, size: number, search: string): Promise<IAllCoursesRes>{
+
+        let filter = { 
+            "$or": [
+                {
+                    "title" : {
+                        "$regex" : search,
+                        "$options": "i"
+                    }
+                },{
+                    "desc" : {
+                        "$regex" : search,
+                        "$options": "i"
+                    }
+                }
+            ]
+        };
+
+        let totalDocs = await this.courseModel.where(filter).countDocuments().exec()
         
-        return this.courseModel
-            .find(
-                { 
-                    "$or": [
-                        {
-                            "title" : {
-                                "$regex" : search,
-                                "$options": "i"
-                            }
-                        },{
-                            "desc" : {
-                                "$regex" : search,
-                                "$options": "i"
-                            }
-                        }
-                    ]
-                }, 
-                {"_id": 0})
+        let records = await this.courseModel
+            .find(filter, 
+                {"_id": 0}
+            )
             .skip((page - 1)* size)
             .limit(size);
+        
+        return {
+            totalRecords: totalDocs,
+            currentPage: page,
+            records: records
+        }
     }
 
     async createNewCourse(course: Course, courseImg: IMulterFile){

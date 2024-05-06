@@ -5,6 +5,7 @@ import { env } from 'src/environments/env';
 import { ActivatedRoute } from '@angular/router';
 import { map, tap } from 'rxjs';
 import { isPlatformServer } from '@angular/common';
+import { IAllCoursesRes } from 'src/app/interfaces/IAllCoursesRes.interface';
 
 @Component({
   selector: 'app-all-courses',
@@ -17,7 +18,8 @@ export class AllCoursesComponent {
   searchKey: string ="";
   currentPage: number = 1;
   pageSize: number = 3;
-
+  totalRecords:number = 0;
+  
   constructor(
     private coursesService: CoursesService,
     private route: ActivatedRoute,
@@ -37,14 +39,17 @@ export class AllCoursesComponent {
             this.pageSize = Number(q['size'])
 
           this.coursesService.fetchCoursesList(q).subscribe(
-            (res: ICourse[])=>{ 
+            (res: IAllCoursesRes)=>{ 
               if(isPlatformServer(this.platformId)){
-        
-                res.forEach( course =>{
+                res.records .forEach( course =>{
                   course.imageUrl = env.apiURL + '/static' + course.imageUrl; 
                 })
               }
-              this.coursesList = res
+              console.log(res);
+              this.currentPage = res.currentPage;
+              this.totalRecords =res.totalRecords;
+              this.coursesList = res.records;
+
             }
           )
         })

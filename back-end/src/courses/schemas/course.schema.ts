@@ -14,6 +14,9 @@ export class Course {
   desc: string;
 
   @Prop()
+  price: number;
+
+  @Prop()
   imageUrl: string;
 
   @Prop()

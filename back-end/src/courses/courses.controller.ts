@@ -21,7 +21,6 @@ export class CoursesController {
         @Query('size', new ParseIntPipe({"optional":true})) size: number = 3,
         @Query('search') search: string = ""
     ) {
-        console.log(page, size, search);
         return this.coursesService.getAllCourses(page, size, search);
     }
 

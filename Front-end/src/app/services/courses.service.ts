@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { env } from 'src/environments/env';
 import { ICourse } from '../interfaces/Icourse.interface';
+import { IAllCoursesRes } from '../interfaces/IAllCoursesRes.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +13,7 @@ export class CoursesService {
   }
 
   fetchCoursesList(q: Record<string,any>){  
-      return this.http.get<ICourse[]>(`${env.apiURL}/courses`, {"params": q});
+      return this.http.get<IAllCoursesRes>(`${env.apiURL}/courses`, {"params": q});
   }
 
 
