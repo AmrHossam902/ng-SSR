@@ -17,6 +17,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SearchComponent } from './components/search/search.component';
 import { PaginatorModule } from 'primeng/paginator';
+import { ToastModule } from 'primeng/toast';
 import { AddCourseComponent } from './components/add-course/add-course.component';
 
 
@@ -41,7 +42,8 @@ import { AddCourseComponent } from './components/add-course/add-course.component
     FormsModule,
     ReactiveFormsModule,
     InputTextModule,
-    InputTextareaModule
+    InputTextareaModule,
+    ToastModule
   ],
   providers: [],
   bootstrap: [AppComponent]

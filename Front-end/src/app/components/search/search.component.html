@@ -10,5 +10,6 @@
     <p-button 
         label="search"
         (click)="onClickSearch()"
+        [disabled] = "value == lastSearchKey"
     ></p-button>
 </div>
