@@ -128,7 +128,7 @@ jobs:
       
       - name: export prod env secrets as a file
         run: |
-          echo "MONGO_USER=${{ secrets.MONGO_USER }}" >> .env
+          echo "MONGO_USER=${{ secrets.MONGO_USER }}" > .env
           ehco "MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} >> .env
           ehco "MONGO_PORT=${{ secrets.MONGO_PORT }} >> .env
           ehco "FRONT_END_EXPOSED_PORT=${{ secrets.FRONT_END_EXPOSED_PORT }} >> .env
