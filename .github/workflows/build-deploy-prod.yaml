@@ -11,6 +11,7 @@ on:
 jobs:
   build-job:
     runs-on: ubuntu-latest
+    environment: prod
     steps:
       - name: checking out your repo
         uses: actions/checkout@v4
@@ -25,7 +26,7 @@ jobs:
           
           echo "export const env = {" >> prod.env.ts
           echo "baseURL='${{secrets.BASE_URL}}'," >> prod.env.ts
-          echo "apiURL='${{secrets.API_URL}}'," >> prod.env.ts
+          echo "apiURL='${{secrets.API_URL}}'" >> prod.env.ts
           echo "}" >> prod.env.ts
 
           cat prod.env.ts
