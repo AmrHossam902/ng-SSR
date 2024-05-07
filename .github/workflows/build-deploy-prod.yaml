@@ -20,7 +20,7 @@ jobs:
 
       - name: prepare env. vars files for front app
         run: |
-          cd ./Front-end/scr/environments/
+          cd Front-end/src/environments/
           rm prod.env.ts
           
           echo "export const env = {" >> prod.env.ts
