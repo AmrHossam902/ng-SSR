@@ -25,8 +25,8 @@ jobs:
           rm prod.env.ts
           
           echo "export const env = {" >> prod.env.ts
-          echo "baseURL='${{secrets.BASE_URL}}'," >> prod.env.ts
-          echo "apiURL='${{secrets.API_URL}}'" >> prod.env.ts
+          echo "baseURL: '${{secrets.BASE_URL}}'," >> prod.env.ts
+          echo "apiURL: '${{secrets.API_URL}}'" >> prod.env.ts
           echo "}" >> prod.env.ts
 
       - name: build docker images
