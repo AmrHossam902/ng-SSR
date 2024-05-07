@@ -18,6 +18,18 @@ jobs:
       - name: test stage
         run: echo "hi, is running"
 
+      - name: prepare env. vars files for front app
+        run: |
+          cd ./Front-end/scr/environments/
+          rm prod.env.ts
+          
+          echo "export const env = {" >> prod.env.ts
+          echo "baseURL='${{secrets.BASE_URL}}'," >> prod.env.ts
+          echo "apiURL='${{secrets.API_URL}}'," >> prod.env.ts
+          echo "}" >> prod.env.ts
+
+          cat prod.env.ts
+
       - name: build docker images
         run: docker compose build
 

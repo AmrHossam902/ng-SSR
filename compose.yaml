@@ -21,14 +21,18 @@ services:
     networks:
       back:
         ipv4_address: 172.30.0.3
-    
+    ports:
+      - ${API_EXPOSED_PORT}:3000
+
     volumes:
       - nest-store:/uni-api/static-files
+
+    env_file:
+      - .env
 
     depends_on:
       - db-service
     
-
   db-client:
     image: mongo-express
     environment:
