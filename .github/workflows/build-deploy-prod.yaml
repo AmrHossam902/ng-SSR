@@ -29,8 +29,6 @@ jobs:
           echo "apiURL='${{secrets.API_URL}}'" >> prod.env.ts
           echo "}" >> prod.env.ts
 
-          cat prod.env.ts
-
       - name: build docker images
         run: docker compose build
 
@@ -103,6 +101,7 @@ jobs:
   deploy-job:
     needs: push-job
     runs-on: ubuntu-latest
+    environment: prod
     steps:
       - name: checking out your repo
         uses: actions/checkout@v4
@@ -126,6 +125,16 @@ jobs:
           script: |
             sudo docker pull amrhossam/test-repo:uni-front
             sudo docker pull amrhossam/test-repo:uni-api
+      
+      - name: export prod env secrets as a file
+        run: |
+          echo "MONGO_USER=${{ secrets.MONGO_USER }}" >> .env
+          ehco "MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} >> .env
+          ehco "MONGO_PORT=${{ secrets.MONGO_PORT }} >> .env
+          ehco "FRONT_END_EXPOSED_PORT=${{ secrets.FRONT_END_EXPOSED_PORT }} >> .env
+          ehco "API_EXPOSED_PORT=${{ secrets.API_EXPOSED_PORT }} >> .env
+          ehco "DB_CLIENT_EXPOSED_PORT=${{ secrets.DB_CLIENT_EXPOSED_PORT }} >> .env
+
 
       - name: copying compose and env files
         uses: appleboy/scp-action@v0.1.7
