@@ -33,6 +33,24 @@ the whole app is a host docker network that runs on a single machine<br/><br/>
 # deployment
 ![](/images/deployment.png)
 
+- build job
+    - this is the first task to run when the flow is triggered.
+    - its main purpose is to generate the build artifacts as docker images and make them available to the next steps.
+    - at this step the angular app and the nest apps are built
+    - secrets are also passed during build operation so we can generate env. variables needed for the angular app.
+    - dist folders are then stored as artifacts to be available to next steps
+    
+
+- push job
+    - this is the second task to run in the pipeline
+    - its main responsiblilty is to push the generated docker images to dockerhub to make it ready for deploymet
+
+
+- deploy job
+    - this task exports env secrets to the .env file needed for production environment.
+    - second it access the server via ssh to pull the latest images and start the app
+
+
 # how to run
 - build images
     ```
