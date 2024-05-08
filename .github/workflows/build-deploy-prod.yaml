@@ -16,8 +16,14 @@ jobs:
       - name: checking out your repo
         uses: actions/checkout@v4
 
+      - name: export all secrets to .env file
+        uses: thaind0/envfile@v1
+        with:
+          secrets: ${{ toJSON(secrets) }}
+          file: .env
+
       - name: test stage
-        run: echo "hi, is running"
+        run: cat .env
 
       - name: prepare env. vars files for front app
         run: |
@@ -134,6 +140,7 @@ jobs:
           echo "FRONT_END_EXPOSED_PORT=${{ secrets.FRONT_END_EXPOSED_PORT }}" >> .env
           echo "API_EXPOSED_PORT=${{ secrets.API_EXPOSED_PORT }}" >> .env
           echo "DB_CLIENT_EXPOSED_PORT=${{ secrets.DB_CLIENT_EXPOSED_PORT }}" >> .env
+          echo "BASE_URL=${{ secrets.BASE_URL }}"
 
 
       - name: copying compose and env files
