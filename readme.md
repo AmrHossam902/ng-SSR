@@ -61,3 +61,4 @@ the whole app is a host docker network that runs on a single machine<br/><br/>
     ```
         sudo docker compose --env-file .env up -d
     ```
+    **note:** the .env file is used to initialize env variables for different services inside the compose file
