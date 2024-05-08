@@ -59,5 +59,5 @@ the whole app is a host docker network that runs on a single machine<br/><br/>
 
 - run the application
     ```
-        sudo docker compose --env-file up -d
+        sudo docker compose --env-file .env up -d
     ```
