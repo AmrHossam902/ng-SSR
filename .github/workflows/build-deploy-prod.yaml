@@ -16,15 +16,6 @@ jobs:
       - name: checking out your repo
         uses: actions/checkout@v4
 
-      - name: export all secrets to .env file
-        uses: thaind0/envfile@v1
-        with:
-          secrets: ${{ toJSON(secrets) }}
-          file: .env
-
-      - name: test stage
-        run: cat .env
-
       - name: prepare env. vars files for front app
         run: |
           cd Front-end/src/environments/
@@ -132,16 +123,13 @@ jobs:
             sudo docker pull amrhossam/test-repo:uni-front
             sudo docker pull amrhossam/test-repo:uni-api
       
-      - name: export prod env secrets as a file
-        run: |
-          echo "MONGO_USER=${{ secrets.MONGO_USER }}" > .env
-          echo "MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }}" >> .env
-          echo "MONGO_PORT=${{ secrets.MONGO_PORT }}" >> .env
-          echo "FRONT_END_EXPOSED_PORT=${{ secrets.FRONT_END_EXPOSED_PORT }}" >> .env
-          echo "API_EXPOSED_PORT=${{ secrets.API_EXPOSED_PORT }}" >> .env
-          echo "DB_CLIENT_EXPOSED_PORT=${{ secrets.DB_CLIENT_EXPOSED_PORT }}" >> .env
-          echo "BASE_URL=${{ secrets.BASE_URL }}"
 
+      - name: export all secrets to .env file
+        uses: thaind0/envfile@v1
+        with:
+          secrets: ${{ toJSON(secrets) }}
+          exclude: SSH_*
+          file: .env
 
       - name: copying compose and env files
         uses: appleboy/scp-action@v0.1.7
